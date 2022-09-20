@@ -59,6 +59,7 @@ void showAllRecords(StudentList sl) {
 	}
 
 }
+/*
 
 int main() {
 
@@ -108,8 +109,9 @@ int main() {
 	/*if (studentFile.is_open()) {
 		studentFile << std::endl << "Test File" << ", " << "testing" << ", " << "testmail" << ", " << 3 << ", " << 4 << ", " << 5;
 		studentFile.close();
-	} */
-
+	} 
 
 	return 0;
 }
+
+*/

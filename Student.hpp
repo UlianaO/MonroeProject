@@ -1,4 +1,5 @@
 
+
 #include <string>
 #include <vector>
 #include <map>
@@ -6,6 +7,8 @@
 #include <sstream>
 #include <sstream>
 #include <iostream>
+#include <fstream>
+#include <iomanip>
 
 using std::string;
 
@@ -17,10 +20,6 @@ private:
 	int presentation_grade;
 	int essay_grade;
 	int project_grade;
-
-	string firstName;
-	string lastName;
-
 
 public:
 	void setName(string Name) {
@@ -40,20 +39,6 @@ public:
 	}
 	string getEmail() {
 		return email;
-	}
-
-	void setFirstName(string Name) {
-		firstName = Name;
-	}
-	string getFirstName() {
-		return firstName;
-	}
-
-	void setLastName(string Name) {
-		firstName = Name;
-	}
-	string getLirstName() {
-		return lastName;
 	}
 
 	void setPresentationGrade(string grade) {
@@ -86,6 +71,16 @@ public:
 		essay_grade = -999;
 		project_grade = -999;*/
 	}
+
+	Student(string Name, string Id, string Email, int presG, int essayG, int projG) {
+		name = Name;
+		id = Id;
+		email = Email;
+		presentation_grade = presG;
+		essay_grade = essayG;
+		project_grade = projG;
+	}
+
 	Student() {}
 
 	Student(string studentInfo) {
@@ -108,6 +103,4 @@ public:
 
 		v.clear();
 	}
-
-
 };

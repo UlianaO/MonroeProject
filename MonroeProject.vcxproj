@@ -131,8 +131,7 @@
     <ClInclude Include="StudentList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Student.cpp" />
-    <ClCompile Include="StudentList.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Students.csv" />
