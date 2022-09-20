@@ -86,6 +86,7 @@ public:
 		essay_grade = -999;
 		project_grade = -999;*/
 	}
+	Student() {}
 
 	Student(string studentInfo) {
 		std::istringstream studentStream(studentInfo);

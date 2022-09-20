@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <ctype.h>
 
 #include "StudentList.h"
 
@@ -19,6 +20,28 @@ void printStudent(Student s) {
 	std::cout << left << setw(20) << s.getProjectGrade() << endl;
 }
 
+bool searchStudent(StudentList& sl, std::string search_term) {
+
+	bool isFound = false;
+
+	Student tempst = Student();
+
+	for (Student s : sl.getStudents())
+	{
+		if (s.getEmail() == search_term || s.getName() == search_term || s.getId() == search_term) {
+			isFound = true;
+			tempst = s;
+		}
+	}
+
+	if (isFound)
+		return true;
+	else
+		return false;
+
+	printStudent(tempst);
+
+}
 using namespace std;
 
 void showAllRecords(StudentList sl) {
@@ -39,32 +62,46 @@ void showAllRecords(StudentList sl) {
 
 int main() {
 
+	// MAIN MENU HERE
+	std::cout << "			   	Welcome to the Student Databse" << std::endl;
+	std::cout << "-------------------------------------------------------------------------------" << std::endl;
+
 	std::string filePath = "Students.csv";
 
 	StudentList sl = StudentList(filePath);
+
 	
 	//show all students
 	showAllRecords(sl);
 
 	char user_choice;
+	std::string search_term;
+	bool isFound;
 
-	// if append is chosen, we are asking to provide the information - that is, we have to create the student - Student(string student info)
-
-	std::fstream studentFile;
-	studentFile.open(filePath, std::ios::app);
-
-	// MAIN MENU HERE
-
-
-
-	std::cout << "Click a to append the student: " << std::endl;
+	std::cout << "Click s to search the student: " << std::endl;
 	std::cin >> user_choice;
 	do {
-		if (user_choice != 'A') {
-			std::cout << "Wrong character, try again.(a)" << std::endl;
+		if (tolower(user_choice) != 's') {
+			std::cout << "Wrong character, try again.(s)" << std::endl;
 			std::cin >> user_choice;
 		}
-	} while (user_choice != 'a');
+		else {
+			std::cout << "Please provide email, id, or name: " << std::endl;
+			std::cin >> search_term;
+			isFound = searchStudent(sl, search_term);
+
+			if (isFound)
+				std::cout << "User found" << std::endl;
+			else
+				std::cout << "User not found" << std::endl;
+		}
+
+	} while (tolower(user_choice) != 's');
+
+
+
+
+
 
 		//std::cout << "Wrong input, choose a" << std::endl;
 
