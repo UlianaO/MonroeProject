@@ -1,6 +1,10 @@
 #include "Student.hpp"
 
 class StudentList {
+
+private:
+    std::vector <Student> students;
+
 public:
     StudentList(std::string filePath) {
         std::ifstream studentFile(filePath);
@@ -8,7 +12,7 @@ public:
         std::string lineContents;
         if (studentFile.is_open()) {
             while (getline(studentFile, lineContents)) {
-                if (lineContents.length() == 0)continue;
+                if (lineContents.length() == 0) continue;
                 Student st = Student(lineContents);
                 students.push_back(st);
 
@@ -52,7 +56,4 @@ public:
         appendCSV.close();
         return true;
     }
-
-private:
-    std::vector <Student> students;
 };

@@ -2,7 +2,7 @@
 //  main.cpp
 //  MonroeProject
 //
-//  Created by John Meeks on 9/19/22.
+//  Uliana Ozerova, John Meeks, 
 //
 
 #include <iostream>
@@ -29,7 +29,6 @@ int main() {
     std::cout << "-------------------------------------------------------------------------------" << std::endl;
 
     while (option != 'q') {
-
         option = getOption();
         switch (option) {
         case 'a'://add student
@@ -60,7 +59,9 @@ char getOption() {
         std::cin.clear();
         string in;
         std::cout << std::endl << "What would you like to do?\na - 'add student'\nd - 'delete student'\ns - 'search/view student'\nv - 'view all records'\nu - 'update student info'\nq - 'quit program'\n\nOption: ";
+        std::cin.clear();
         std::getline(std::cin, in);
+
         if (in.length() > 1) {
             std::cout << "\nERROR: Please only enter a single character\n";
             continue;
@@ -102,21 +103,24 @@ bool addStudent(StudentList& sl) {
 bool searchStudent(StudentList& sl) {
 
     std::string search_term;
-
-    std::cout << "Please provide email, id, or name: " << std::endl;
-    std::getline(std::cin, search_term);
-
     bool isFound = false;
-
     Student tempst = Student();
 
-    for (Student s : sl.getStudents())
-    {
-        if (s.getEmail() == search_term || s.getName() == search_term || s.getId() == search_term) {
-            isFound = true;
-            tempst = s;
+
+        std::cout << "Please provide email, id, or name: " << std::endl;
+        std::getline(std::cin, search_term);
+
+        //use this tempst object to pass to another function if you need to return an object.
+
+        for (Student s : sl.getStudents())
+        {
+            if (s.getEmail() == search_term || s.getName() == search_term || s.getId() == search_term) {
+                isFound = true;
+                tempst = s;
+                break;
+            }
         }
-    }
+
     if (isFound) {
         std::cout << "Found!" << std::endl;
         printStudent(tempst);
@@ -152,7 +156,7 @@ int getScore(string field) {
     while (true) {
         std::cin.clear();
         int in;
-        std::cout << "\nPlease enter the " << field << " of the student you are adding: ";
+        std::cout << "\nPlease enter the " << field << " of the student you are adding(999 if no grade): ";
         while (!(std::cin >> in)) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
