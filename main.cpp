@@ -21,10 +21,18 @@ bool printStudent(Student s);//print student
 bool updateCSV(StudentList& sl);//rewrite CSV with updated list
 bool checkID(std::string uid);
 std::string makeUpperCase(std::string str);
+bool checkEmail(std::string email);
+std::string makeLowerCase(std::string str);
 
 std::string filePath = "Students.csv";
 
 int main() {
+
+    std::string em1 = "usf.edu@USf.eDu";
+    em1 = makeLowerCase(em1);
+    std::cout << em1;
+    
+
     StudentList sl = StudentList(filePath);
 
     char option = ' ';
@@ -55,6 +63,20 @@ int main() {
         }
     }
 
+}
+
+bool checkEmail(std::string email) {
+
+    std::string email_postfix = "@usf.edu";
+
+    if (email.length() >= email_postfix.length())
+        if (email.compare(email.length() - email_postfix.length(), email_postfix.length(), email_postfix)==0)
+            return true;
+        else
+            return false;
+    else
+        return false;
+  
 }
 
 char getOption() {
@@ -117,6 +139,17 @@ std::string makeUpperCase(std::string str) {
     return str_new;
 }
 
+std::string makeLowerCase(std::string str) {
+
+    std::string str_new;
+    char ch;
+    for (int i = 0; i < str.length(); i++) {
+        ch = tolower(str[i]);
+        str_new = str_new + ch;
+    }
+
+    return str_new;
+}
 bool addStudent(StudentList& sl) {
 
     string UID;
@@ -140,7 +173,20 @@ bool addStudent(StudentList& sl) {
     }
 
     string name = getString("name", 40);
-    string email = getString("email", 40);
+    string email;
+
+    while (true) {
+        email = getString("email", 40);
+        email = makeLowerCase(email);
+        bool bool_email = checkEmail(email);
+
+        if (bool_email== false) {
+            std::cout << "The email is not valid." << std::endl;
+            continue;
+        }
+        else
+            break;
+    }
 
     int presGrade = getScore("presentation score");
     int essayGrade = getScore("essay score");
