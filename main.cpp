@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "StudentList.h"
+#include <string>
 
 char getOption(); //gets and returns user action
 bool addStudent(StudentList& sl); //function to add student
@@ -18,6 +19,8 @@ bool updateStudent(StudentList& sl); //function to update student info
 bool printStudentList(StudentList sl); //function to print student list
 bool printStudent(Student s);//print student
 bool updateCSV(StudentList& sl);//rewrite CSV with updated list
+bool checkID(std::string uid);
+std::string makeUpperCase(std::string str);
 
 std::string filePath = "Students.csv";
 
@@ -78,8 +81,59 @@ char getOption() {
     return 'q';
 }
 
+bool checkID(std::string uid) {
+    std::string prefix = "U";
+
+    bool isGood = true;
+
+    //If UID starts with U, check that the rest is numeric
+    if ((uid.rfind("U", 0) == 0) || (uid.rfind("u", 0) == 0)) {
+        
+        //go through the string, checking that the rest are digits
+        for (int i = 1; i < uid.length(); i++) {
+            if (isdigit(uid[i]) == false) {
+                isGood = false;
+                break;
+            }
+            else
+                isGood = true;
+        }
+    }
+    else
+        isGood = false;
+
+    return isGood;
+}
+
+std::string makeUpperCase(std::string str) {
+
+    std::string str_new;
+    char ch;
+    for (int i = 0; i < str.length(); i++) {
+        ch = toupper(str[i]);
+        str_new = str_new + ch;
+    }
+
+    return str_new;
+}
+
 bool addStudent(StudentList& sl) {
-    string UID = getString("UID", 10);
+
+    string UID;
+    //if ID is not properlt formatted, ask to reenter the ID
+    while (true) {
+        UID = getString("UID", 10);
+        UID = makeUpperCase(UID);
+        bool bool_id = checkID(UID);
+            
+        if (bool_id == false) {
+            std::cout << "The ID is not valid." << std::endl;
+            continue;
+        }
+        else
+            break;
+    }
+
     if (sl.IDexists(UID)) {
         std::cout << "UID already added\n";
         return 0;

@@ -4,7 +4,6 @@ class StudentList {
 
 private:
     std::vector <Student> students;
-
 public:
     StudentList(std::string filePath) {
         std::ifstream studentFile(filePath);
@@ -39,6 +38,7 @@ public:
     }
 
     bool IDexists(string uid) {
+
         for (int i = 0; i < students.size(); i++) {
             if (students[i].getId() == uid) return true;
         }
