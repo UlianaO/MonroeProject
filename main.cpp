@@ -2,7 +2,7 @@
 //  main.cpp
 //  MonroeProject
 //
-//  Uliana Ozerova, John Meeks, 
+//  Team Monroe: Uliana Ozerova, John Meeks, 
 //
 
 #include <iostream>
@@ -127,7 +127,7 @@ bool searchStudent(StudentList& sl) {
         return true;
     }
     else {
-        std::cout << "User not found" << std::endl;
+        std::cout << "User not found!" << std::endl;
         return false;
     }
 
