@@ -23,15 +23,12 @@ bool checkID(std::string uid);
 std::string makeUpperCase(std::string str);
 bool checkEmail(std::string email);
 std::string makeLowerCase(std::string str);
+std::string trimString(std::string str);
+bool hasSpecialCharactersOrNumbers(std::string str);
 
 std::string filePath = "Students.csv";
 
 int main() {
-
-    std::string em1 = "usf.edu@USf.eDu";
-    em1 = makeLowerCase(em1);
-    std::cout << em1;
-    
 
     StudentList sl = StudentList(filePath);
 
@@ -65,6 +62,20 @@ int main() {
 
 }
 
+std::string trimString(std::string str) {
+    size_t first = str.find_first_not_of(' ');
+
+    //if string is empty
+    if (string::npos == first) {
+        //return the original string
+        return str;
+    }
+    size_t last = str.find_last_not_of(' ');
+    std::string str_new = str.substr(first, (last - first + 1));
+
+    return str_new;
+}
+
 bool checkEmail(std::string email) {
 
     std::string email_postfix = "@usf.edu";
@@ -78,6 +89,19 @@ bool checkEmail(std::string email) {
         return false;
   
 }
+
+bool hasSpecialCharactersOrNumbers(std::string str) {
+
+    bool hasChars = false;
+    std::size_t found = str.find_first_not_of("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz `'");
+
+    if (found != std::string::npos) {
+        hasChars = true;
+    }
+
+    return hasChars;
+}
+
 
 char getOption() {
     while (true) {
@@ -141,7 +165,7 @@ std::string makeUpperCase(std::string str) {
 
 std::string makeLowerCase(std::string str) {
 
-    std::string str_new;
+    std::string str_new = "";
     char ch;
     for (int i = 0; i < str.length(); i++) {
         ch = tolower(str[i]);
@@ -152,10 +176,14 @@ std::string makeLowerCase(std::string str) {
 }
 bool addStudent(StudentList& sl) {
 
+    /*USF ID*/
+
     string UID;
+
     //if ID is not properlt formatted, ask to reenter the ID
     while (true) {
         UID = getString("UID", 10);
+        UID = trimString(UID);
         UID = makeUpperCase(UID);
         bool bool_id = checkID(UID);
             
@@ -172,11 +200,27 @@ bool addStudent(StudentList& sl) {
         return 0;
     }
 
-    string name = getString("name", 40);
-    string email;
+    /* NAME */
+
+    string name = "";
 
     while (true) {
+        name = getString("name", 40);
+        name = trimString(name);
+
+        if (hasSpecialCharactersOrNumbers(name)) {
+            std::cout << "The name contains special characters or numbers." << std::endl;
+            continue;
+        }
+        else
+            break;
+    }
+
+    /* EMAIL */
+    string email;
+    while (true) {
         email = getString("email", 40);
+        email = trimString(email);
         email = makeLowerCase(email);
         bool bool_email = checkEmail(email);
 
