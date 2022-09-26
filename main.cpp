@@ -446,7 +446,7 @@ bool updateStudent(StudentList& sl) {
                     essayGrade = getScore("essay score");
                     break;
                 }
-                case 's': // update project score
+                case 'r': // update project score
                 {
                     projGrade = getScore("project score");
                     break;
