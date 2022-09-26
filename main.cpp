@@ -364,9 +364,27 @@ bool delStudent(StudentList& sl) {
 
 bool updateStudent(StudentList& sl) {
     string UID;
-    std::cin.clear();
-    std::cout << "\nPlease enter the UID of the student you are updating: ";
-    std::getline(std::cin, UID);
+
+    // if ID is not properlt formatted, ask to reenter the ID
+    while (true) {
+        UID = getString("UID", 10);
+        UID = trimString(UID);
+        UID = makeUpperCase(UID);
+        bool bool_id = checkID(UID);
+
+        if (bool_id == false) {
+            std::cout << "The ID is not valid." << std::endl;
+            continue;
+        }
+        else
+            break;
+    }
+
+    if (!(sl.IDexists(UID))) {
+        std::cout << "\nUID does not exist\n";
+        return 0;
+    }
+
     char option = ' ';
 
     // input validation
@@ -392,10 +410,37 @@ bool updateStudent(StudentList& sl) {
 
                 switch (option) {
                 case 'n': // update name
-                    name = getString("name", 40);
+
+                    while (true) {
+                        name = getString("name", 40);
+                        name = trimString(name);
+
+                        if (hasSpecialCharactersOrNumbers(name)) {
+                            std::cout << "The name contains special characters or numbers." << std::endl;
+                            continue;
+                        }
+                        else
+                            break;
+                    }
+
                     break;
+
                 case 'm': // update email
-                    email = getString("email", 40);
+
+                    while (true) {
+                        email = getString("email", 40);
+                        email = trimString(email);
+                        email = makeLowerCase(email);
+                        bool bool_email = checkEmail(email);
+
+                        if (bool_email == false) {
+                            std::cout << "The email is not valid." << std::endl;
+                            continue;
+                        }
+                        else
+                            break;
+                    }
+
                     break;
                 case 'p': // update presentation score
                 {
