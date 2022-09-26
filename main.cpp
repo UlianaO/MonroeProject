@@ -387,12 +387,6 @@ bool updateStudent(StudentList& sl) {
 
     char option = ' ';
 
-    // input validation
-    if (!(sl.IDexists(UID))) {
-        std::cout << "\nUID does not exist\n";
-        return 0;
-    }
-
     std::cin.clear();
 
     while (option != 'q') {
