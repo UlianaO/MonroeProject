@@ -128,10 +128,8 @@ char getOption() {
     return 'q';
 }
 
-char getUpdateOption()
-{
-    while (true)
-    {
+char getUpdateOption() {
+    while (true) {
         std::cin.clear();
         string in;
         std::cout << std::endl
@@ -139,18 +137,15 @@ char getUpdateOption()
         std::cin.clear();
         std::getline(std::cin, in);
 
-        if (in.length() > 1)
-        {
+        if (in.length() > 1) {
             std::cout << "\nERROR: Please only enter a single character\n";
             continue;
         }
-        else if (in[0] == 'n' || in[0] == 'm' || in[0] == 'p' || in[0] == 'e' || in[0] == 'r' || in[0] == 'q')
-        {
+        else if (in[0] == 'n' || in[0] == 'm' || in[0] == 'p' || in[0] == 'e' || in[0] == 'r' || in[0] == 'q') {
             return in[0];
             break;
         }
-        else
-        {
+        else {
             std::cout << "\nERROR: Please enter one of the listed characters\n";
             continue;
         }
@@ -375,22 +370,18 @@ bool updateStudent(StudentList& sl) {
     char option = ' ';
 
     // input validation
-    if (!(sl.IDexists(UID)))
-    {
+    if (!(sl.IDexists(UID))) {
         std::cout << "\nUID does not exist\n";
         return 0;
     }
 
     std::cin.clear();
 
-    while (option != 'q')
-    {
+    while (option != 'q') {
         option = getUpdateOption();
 
-        for (Student s : sl.getStudents())
-        {
-            if (s.getId() == UID)
-            {
+        for (Student s : sl.getStudents()) {
+            if (s.getId() == UID) {
                 string name = s.getName();
                 string email = s.getEmail();
                 int presGrade = s.getPresentationGrade();
@@ -399,8 +390,7 @@ bool updateStudent(StudentList& sl) {
 
                 sl.deleteStudent(UID);
 
-                switch (option)
-                {
+                switch (option) {
                 case 'n': // update name
                     name = getString("name", 40);
                     break;
