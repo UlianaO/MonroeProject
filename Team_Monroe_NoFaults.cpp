@@ -2,12 +2,172 @@
 //  main.cpp
 //  MonroeProject
 //
-//  Team Monroe: Uliana Ozerova, John Meeks, Maanasa Poluparti
+//  Team Monroe: Uliana Ozerova, John Meeks, Maanasa Poluparti, Ayden Malik
 //
 
 #include <iostream>
-#include "StudentList.h"
 #include <string>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <fstream>
+#include <iomanip>
+#include <limits>
+//#include "StudentList.h"
+using std::string;
+
+class Student {
+private:
+	string name;
+	string id;
+	string email;
+	int presentation_grade;
+	int essay_grade;
+	int project_grade;
+
+public:
+	void setName(string Name) {
+		Name = name;
+	}
+	string getName() {
+		return name;
+	}
+	void setId(string Id) {
+		Id = id;
+	}
+	string getId() {
+		return id;
+	}
+	void setEmail(string Email) {
+		Email = email;
+	}
+	string getEmail() {
+		return email;
+	}
+
+	void setPresentationGrade(string grade) {
+		presentation_grade = stoi(grade);
+	}
+
+	int getPresentationGrade() {
+		return presentation_grade;
+	}
+	void setEssayGrade(string grade) {
+		essay_grade = stoi(grade);
+	}
+
+	int getEssayGrade() {
+		return essay_grade;
+	}
+	void setProjectGrade(string grade) {
+		project_grade = stoi(grade);
+	}
+
+	int getProjectGrade() {
+		return project_grade;
+	}
+
+	Student(string Name, string Id, string Email) {
+		name = Name;
+		id = Id;
+		email = Email;
+		/*presentation_grade = -999;
+		essay_grade = -999;
+		project_grade = -999;*/
+	}
+
+	Student(string Name, string Id, string Email, int presG, int essayG, int projG) {
+		name = Name;
+		id = Id;
+		email = Email;
+		presentation_grade = presG;
+		essay_grade = essayG;
+		project_grade = projG;
+	}
+
+	Student() {}
+
+	Student(string studentInfo) {
+		std::istringstream studentStream(studentInfo);
+
+		std::string token;
+
+		std::vector <std::string> v;
+
+		while (std::getline(studentStream, token, ',')) {
+			v.push_back(token);
+		}
+
+		name = v[0];
+		id = v[1];
+		email = v[2];
+		presentation_grade = std::stoi(v[3]);
+		essay_grade = std::stoi(v[4]);
+		project_grade = std::stoi(v[5]);
+
+		v.clear();
+	}
+};
+
+
+
+class StudentList {
+
+private:
+    std::vector <Student> students;
+public:
+    StudentList(std::string filePath) {
+        std::ifstream studentFile(filePath);
+
+        std::string lineContents;
+        if (studentFile.is_open()) {
+            while (getline(studentFile, lineContents)) {
+                if (lineContents.length() == 0) continue;
+                Student st = Student(lineContents);
+                students.push_back(st);
+
+            }
+        }
+    }
+
+    std::vector <Student> getStudents() {
+        return students;
+    }
+
+    void addStudent(Student st) {
+        students.push_back(st);
+    }
+
+    bool deleteStudent(string uid) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students[i].getId() == uid) {
+                students.erase(students.begin() + i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool IDexists(string uid) {
+
+        for (int i = 0; i < students.size(); i++) {
+            if (students[i].getId() == uid) return true;
+        }
+        return false;
+    }
+
+    bool writeListToCSV(string filePath) {
+        std::ofstream appendCSV;
+        appendCSV.open(filePath, std::ios_base::trunc);
+        for (int i = 0; i < students.size(); i++) {
+            string CSVFormat = students[i].getName() + "," + students[i].getId() + "," + students[i].getEmail() + "," + std::to_string(students[i].getPresentationGrade()) + "," + std::to_string(students[i].getEssayGrade()) + "," + std::to_string(students[i].getProjectGrade()) + "\n";
+            appendCSV << CSVFormat;
+        }
+
+        appendCSV.close();
+        return true;
+    }
+};
 
 char getOption(); //gets and returns user action
 char getUpdateOption(); //gets and returns user action for UpdateStudent()
@@ -26,6 +186,10 @@ bool checkEmail(std::string email);
 std::string makeLowerCase(std::string str);
 std::string trimString(std::string str);
 bool hasSpecialCharactersOrNumbers(std::string str);
+
+
+
+
 
 std::string filePath = "Students.csv";
 
@@ -354,7 +518,7 @@ bool delStudent(StudentList& sl) {
         std::cout << "\nError deleting " << uid << "\n";
     }
     else {
-        std::cout << "\Successfully deleted " << uid << "\n";
+        std::cout << "\nSuccessfully deleted " << uid << "\n";
     }
 
     updateCSV(sl);
@@ -501,3 +665,5 @@ bool updateCSV(StudentList& sl) {
     //error writing
     return false;
 }
+
+
