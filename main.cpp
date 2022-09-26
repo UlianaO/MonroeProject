@@ -10,6 +10,7 @@
 #include <string>
 
 char getOption(); //gets and returns user action
+char getUpdateOption(); //gets and returns user action for UpdateStudent()
 bool addStudent(StudentList& sl); //function to add student
 string getString(string field, int maxLen);
 int getScore(string field);
@@ -120,6 +121,36 @@ char getOption() {
             break;
         }
         else {
+            std::cout << "\nERROR: Please enter one of the listed characters\n";
+            continue;
+        }
+    }
+    return 'q';
+}
+
+char getUpdateOption()
+{
+    while (true)
+    {
+        std::cin.clear();
+        string in;
+        std::cout << std::endl
+                  << "What would you like to update?\nn - 'name'\nm - 'email'\np - 'presentation score'\ne - 'essay score'\nr - ' project score'\nq - 'quit program'\n\nOption: ";
+        std::cin.clear();
+        std::getline(std::cin, in);
+
+        if (in.length() > 1)
+        {
+            std::cout << "\nERROR: Please only enter a single character\n";
+            continue;
+        }
+        else if (in[0] == 'n' || in[0] == 'm' || in[0] == 'p' || in[0] == 'e' || in[0] == 'r' || in[0] == 'q')
+        {
+            return in[0];
+            break;
+        }
+        else
+        {
             std::cout << "\nERROR: Please enter one of the listed characters\n";
             continue;
         }
@@ -337,7 +368,71 @@ bool delStudent(StudentList& sl) {
 }
 
 bool updateStudent(StudentList& sl) {
+    string UID;
+    std::cin.clear();
+    std::cout << "\nPlease enter the UID of the student you are updating: ";
+    std::getline(std::cin, UID);
+    char option = ' ';
 
+    // input validation
+    if (!(sl.IDexists(UID)))
+    {
+        std::cout << "\nUID does not exist\n";
+        return 0;
+    }
+
+    std::cin.clear();
+
+    while (option != 'q')
+    {
+        option = getUpdateOption();
+
+        for (Student s : sl.getStudents())
+        {
+            if (s.getId() == UID)
+            {
+                string name = s.getName();
+                string email = s.getEmail();
+                int presGrade = s.getPresentationGrade();
+                int essayGrade = s.getEssayGrade();
+                int projGrade = s.getProjectGrade();
+
+                sl.deleteStudent(UID);
+
+                switch (option)
+                {
+                case 'n': // update name
+                    name = getString("name", 40);
+                    break;
+                case 'm': // update email
+                    email = getString("email", 40);
+                    break;
+                case 'p': // update presentation score
+                {
+                    presGrade = getScore("presentation score");
+                    break;
+                }
+                case 'e': // update essay score
+                {
+                    essayGrade = getScore("essay score");
+                    break;
+                }
+                case 's': // update project score
+                {
+                    projGrade = getScore("project score");
+                    break;
+                }
+                case 'q': // quit program
+                    return 0;
+                    break;
+                }
+
+                sl.addStudent(Student(name, UID, email, presGrade, essayGrade, projGrade));
+                updateCSV(sl);
+                break;
+            }
+        }
+    }
     return true;
 }
 
