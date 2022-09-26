@@ -2,7 +2,7 @@
 //  main.cpp
 //  MonroeProject
 //
-//  Team Monroe: Uliana Ozerova, John Meeks, 
+//  Team Monroe: Uliana Ozerova, John Meeks, Maanasa Poluparti
 //
 
 #include <iostream>
