@@ -27,40 +27,40 @@ private:
 
 public:
 	void setName(string Name) {
-		Name = name;
+		name = Name;
 	}
 	string getName() {
 		return name;
 	}
 	void setId(string Id) {
-		Id = id;
+	    id = Id;
 	}
 	string getId() {
 		return id;
 	}
 	void setEmail(string Email) {
-		Email = email;
+		email = Email;
 	}
 	string getEmail() {
 		return email;
 	}
 
-	void setPresentationGrade(string grade) {
-		presentation_grade = stoi(grade);
+	void setPresentationGrade(int grade) {
+		presentation_grade = grade;
 	}
 
 	int getPresentationGrade() {
 		return presentation_grade;
 	}
-	void setEssayGrade(string grade) {
-		essay_grade = stoi(grade);
+	void setEssayGrade(int grade) {
+		essay_grade = grade;
 	}
 
 	int getEssayGrade() {
 		return essay_grade;
 	}
-	void setProjectGrade(string grade) {
-		project_grade = stoi(grade);
+	void setProjectGrade(int grade) {
+		project_grade = grade;
 	}
 
 	int getProjectGrade() {
@@ -166,6 +166,10 @@ public:
 
         appendCSV.close();
         return true;
+    }
+
+    void overrideVector(std::vector <Student> replacement){
+        students = replacement;
     }
 };
 
@@ -555,29 +559,27 @@ bool updateStudent(StudentList& sl) {
 
     while (option != 'q') {
         option = getUpdateOption();
+        std::vector <Student> tempvector = sl.getStudents();
 
-        for (Student s : sl.getStudents()) {
+        for (Student& s : tempvector) {
             if (s.getId() == UID) {
-                string name = s.getName();
-                string email = s.getEmail();
-                int presGrade = s.getPresentationGrade();
-                int essayGrade = s.getEssayGrade();
-                int projGrade = s.getProjectGrade();
 
-                sl.deleteStudent(UID);
+
 
                 switch (option) {
                 case 'n': // update name
 
                     while (true) {
-                        name = getString("name", 40);
+                        string name = getString("name", 40);
                         name = trimString(name);
 
                         if (hasSpecialCharactersOrNumbers(name)) {
                             std::cout << "The name contains special characters or numbers." << std::endl;
                             continue;
                         }
-                        else
+                        else{
+                            s.setName(name);
+                        }
                             break;
                     }
 
@@ -586,7 +588,7 @@ bool updateStudent(StudentList& sl) {
                 case 'm': // update email
 
                     while (true) {
-                        email = getString("email", 40);
+                        string email = getString("email", 40);
                         email = trimString(email);
                         email = makeLowerCase(email);
                         bool bool_email = checkEmail(email);
@@ -595,32 +597,37 @@ bool updateStudent(StudentList& sl) {
                             std::cout << "The email is not valid." << std::endl;
                             continue;
                         }
-                        else
+                        else{
+                            s.setEmail(email);
+                        }
                             break;
                     }
 
                     break;
                 case 'p': // update presentation score
                 {
-                    presGrade = getScore("presentation score");
+                    int presGrade = getScore("presentation score");
+                    s.setPresentationGrade(presGrade);
                     break;
                 }
                 case 'e': // update essay score
                 {
-                    essayGrade = getScore("essay score");
+                    int essayGrade = getScore("essay score");
+                    s.setEssayGrade(essayGrade);
+                    printStudent(s);
                     break;
                 }
                 case 'r': // update project score
                 {
-                    projGrade = getScore("project score");
+                    int projGrade = getScore("project score");
+                    s.setProjectGrade(projGrade);
                     break;
                 }
                 case 'q': // quit program
                     return 0;
                     break;
                 }
-
-                sl.addStudent(Student(name, UID, email, presGrade, essayGrade, projGrade));
+                sl.overrideVector(tempvector);
                 updateCSV(sl);
                 break;
             }
@@ -665,5 +672,3 @@ bool updateCSV(StudentList& sl) {
     //error writing
     return false;
 }
-
-
