@@ -301,7 +301,7 @@ char getUpdateOption() {
         std::cin.clear();
         string in;
         std::cout << std::endl
-                  << "What would you like to update?\nn - 'name'\nm - 'email'\np - 'presentation score'\ne - 'essay score'\nr - ' project score'\nq - 'quit program'\n\nOption: ";
+                  << "What would you like to update?\nn - 'name'\nm - 'email'\np - 'presentation score'\ne - 'essay score'\nr - 'project score'\nq = 'go back to the menu'\n\nOption: ";
         std::cin.clear();
         std::getline(std::cin, in);
 
@@ -477,7 +477,7 @@ string getString(string field, int maxLen) {
     while (true) {
         std::cin.clear();
         string in;
-        std::cout << "\nPlease enter the " << field << " of the student you are adding: ";
+        std::cout << "\nPlease enter the " << field << " of the student: ";
         std::getline(std::cin, in);
         if (in.length() > maxLen || in.length() < 1) {
             std::cout << "\nERROR: " << field << " must not exceed " << maxLen << " characters in length, or be empty.\n";
@@ -495,7 +495,7 @@ int getScore(string field) {
     while (true) {
         std::cin.clear();
         int in;
-        std::cout << "\nPlease enter the " << field << " of the student you are adding(999 if no grade): ";
+        std::cout << "\nPlease enter the " << field << " of the student(999 if no grade): ";
         while (!(std::cin >> in)) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -565,8 +565,13 @@ bool updateStudent(StudentList& sl) {
         for (Student& s : tempvector) {
             if (s.getId() == UID) {
 
-
-
+                std::cout << std::left << std::setw(20) << "Name"
+                    << std::left << std::setw(20) << "USF ID"
+                    << std::left << std::setw(20) << "Email"
+                    << std::left << std::setw(20) << "Presentation"
+                    << std::left << std::setw(20) << "Essay"
+                    << std::left << std::setw(20) << "Project" << std::endl;
+                printStudent(s);
                 switch (option) {
                 case 'n': // update name
 
@@ -578,10 +583,10 @@ bool updateStudent(StudentList& sl) {
                             std::cout << "The name contains special characters or numbers." << std::endl;
                             continue;
                         }
-                        else{
+                        else {
                             s.setName(name);
                         }
-                            break;
+                        break;
                     }
 
                     break;
@@ -598,10 +603,10 @@ bool updateStudent(StudentList& sl) {
                             std::cout << "The email is not valid." << std::endl;
                             continue;
                         }
-                        else{
+                        else {
                             s.setEmail(email);
                         }
-                            break;
+                        break;
                     }
 
                     break;
