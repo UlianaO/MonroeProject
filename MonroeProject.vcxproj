@@ -131,10 +131,10 @@
     <ClInclude Include="StudentList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <Text Include="Students.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Students.csv" />
+    <ClCompile Include="Team_Monroe_NoFault.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

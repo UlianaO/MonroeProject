@@ -447,12 +447,13 @@ bool searchStudent(StudentList& sl) {
 
         std::cout << "Please provide email, id, or name: " << std::endl;
         std::getline(std::cin, search_term);
+        search_term = trimString(search_term);
 
         //use this tempst object to pass to another function if you need to return an object.
 
         for (Student s : sl.getStudents())
         {
-            if (s.getEmail() == search_term || s.getName() == search_term || s.getId() == search_term) {
+            if (s.getEmail() == makeLowerCase(search_term) || s.getName() == search_term || s.getId() == makeUpperCase(search_term)) {
                 isFound = true;
                 tempst = s;
                 break;
@@ -640,9 +641,9 @@ bool printStudentList(StudentList sl) {
     std::cout << std::left << std::setw(20) << "Name"
         << std::left << std::setw(20) << "USF ID"
         << std::left << std::setw(20) << "Email"
-        << std::left << std::setw(20) << "Grade1"
-        << std::left << std::setw(20) << "Grade2"
-        << std::left << std::setw(20) << "Grade3" << std::endl;
+        << std::left << std::setw(20) << "Presentation"
+        << std::left << std::setw(20) << "Essay"
+        << std::left << std::setw(20) << "Project" << std::endl;
 
     for (Student s : sl.getStudents())
     {
