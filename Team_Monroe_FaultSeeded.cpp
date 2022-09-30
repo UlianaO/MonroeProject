@@ -447,7 +447,7 @@ bool searchStudent(StudentList& sl) {
 
     for (Student s : sl.getStudents())
     {
-        if (s.getEmail() == makeLowerCase(search_term) || s.getName() == search_term || s.getId() == makeUpperCase(search_term)) {
+        if (s.getEmail() == search_term || s.getName() == search_term || s.getId() == search_term) {
             isFound = true;
             tempst = s;
             break;
@@ -605,24 +605,21 @@ bool updateStudent(StudentList& sl) {
 
                     break;
                 case 'p': // update presentation score
-                {
                     int presGrade = getScore("presentation score");
                     s.setPresentationGrade(presGrade);
                     break;
-                }
+                
                 case 'e': // update essay score
-                {
                     int essayGrade = getScore("essay score");
                     s.setEssayGrade(essayGrade);
                     printStudent(s);
                     break;
-                }
+             
                 case 'r': // update project score
-                {
                     int projGrade = getScore("project score");
                     s.setProjectGrade(projGrade);
                     break;
-                }
+               
                 case 'q': // quit program
                     return 0;
                     break;
