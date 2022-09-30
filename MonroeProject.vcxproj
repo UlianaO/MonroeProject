@@ -134,6 +134,7 @@
     <Text Include="Students.csv" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Team_Monroe_FaultSeeded.cpp" />
     <ClCompile Include="Team_Monroe_NoFault.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
