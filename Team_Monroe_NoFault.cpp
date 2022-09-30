@@ -319,7 +319,7 @@ bool checkID(std::string uid) {
     bool isGood = true;
 
     //If UID starts with U, check that the rest is numeric
-    if (uid.length() == 10) {
+    if (uid.length() == 9) {
         if ((uid.rfind("U", 0) == 0) || (uid.rfind("u", 0) == 0)) {
 
             //go through the string, checking that the rest are digits
