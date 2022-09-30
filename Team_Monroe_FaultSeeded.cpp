@@ -173,14 +173,8 @@ public:
     }
 };
 
-char getOption(); //gets and returns user action
-char getUpdateOption(); //gets and returns user action for UpdateStudent()
-bool addStudent(StudentList& sl); //function to add student
 string getString(string field, int maxLen);
 int getScore(string field);
-bool delStudent(StudentList& sl); //function to delete student
-bool searchStudent(StudentList& sl); //function to search for student
-bool updateStudent(StudentList& sl); //function to update student info
 bool printStudentList(StudentList sl); //function to print student list
 bool printStudent(Student s);//print student
 bool updateCSV(StudentList& sl);//rewrite CSV with updated list
