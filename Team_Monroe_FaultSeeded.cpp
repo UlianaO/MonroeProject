@@ -525,7 +525,7 @@ bool delStudent(StudentList& sl) {
     return true;
 }
 
-bool updateStudent(StudentList& sl) {
+bool updateStudent(StudentList sl) {
     string UID;
 
     // if ID is not properlt formatted, ask to reenter the ID
