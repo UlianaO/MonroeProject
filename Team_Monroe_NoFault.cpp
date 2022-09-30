@@ -374,7 +374,7 @@ bool addStudent(StudentList& sl) {
 
     //if ID is not properlt formatted, ask to reenter the ID
     while (true) {
-        UID = getString("UID", 10);
+        UID = getString("UID", 9);
         UID = trimString(UID);
         UID = makeUpperCase(UID);
         bool bool_id = checkID(UID);
