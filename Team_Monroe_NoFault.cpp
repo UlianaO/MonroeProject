@@ -18,95 +18,95 @@ using std::string;
 
 class Student {
 private:
-	string name;
-	string id;
-	string email;
-	int presentation_grade;
-	int essay_grade;
-	int project_grade;
+    string name;
+    string id;
+    string email;
+    int presentation_grade;
+    int essay_grade;
+    int project_grade;
 
 public:
-	void setName(string Name) {
-		name = Name;
-	}
-	string getName() {
-		return name;
-	}
-	void setId(string Id) {
-	    id = Id;
-	}
-	string getId() {
-		return id;
-	}
-	void setEmail(string Email) {
-		email = Email;
-	}
-	string getEmail() {
-		return email;
-	}
+    void setName(string Name) {
+        name = Name;
+    }
+    string getName() {
+        return name;
+    }
+    void setId(string Id) {
+        id = Id;
+    }
+    string getId() {
+        return id;
+    }
+    void setEmail(string Email) {
+        email = Email;
+    }
+    string getEmail() {
+        return email;
+    }
 
-	void setPresentationGrade(int grade) {
-		presentation_grade = grade;
-	}
+    void setPresentationGrade(int grade) {
+        presentation_grade = grade;
+    }
 
-	int getPresentationGrade() {
-		return presentation_grade;
-	}
-	void setEssayGrade(int grade) {
-		essay_grade = grade;
-	}
+    int getPresentationGrade() {
+        return presentation_grade;
+    }
+    void setEssayGrade(int grade) {
+        essay_grade = grade;
+    }
 
-	int getEssayGrade() {
-		return essay_grade;
-	}
-	void setProjectGrade(int grade) {
-		project_grade = grade;
-	}
+    int getEssayGrade() {
+        return essay_grade;
+    }
+    void setProjectGrade(int grade) {
+        project_grade = grade;
+    }
 
-	int getProjectGrade() {
-		return project_grade;
-	}
+    int getProjectGrade() {
+        return project_grade;
+    }
 
-	Student(string Name, string Id, string Email) {
-		name = Name;
-		id = Id;
-		email = Email;
-		/*presentation_grade = -999;
-		essay_grade = -999;
-		project_grade = -999;*/
-	}
+    Student(string Name, string Id, string Email) {
+        name = Name;
+        id = Id;
+        email = Email;
+        /*presentation_grade = -999;
+        essay_grade = -999;
+        project_grade = -999;*/
+    }
 
-	Student(string Name, string Id, string Email, int presG, int essayG, int projG) {
-		name = Name;
-		id = Id;
-		email = Email;
-		presentation_grade = presG;
-		essay_grade = essayG;
-		project_grade = projG;
-	}
+    Student(string Name, string Id, string Email, int presG, int essayG, int projG) {
+        name = Name;
+        id = Id;
+        email = Email;
+        presentation_grade = presG;
+        essay_grade = essayG;
+        project_grade = projG;
+    }
 
-	Student() {}
+    Student() {}
 
-	Student(string studentInfo) {
-		std::istringstream studentStream(studentInfo);
+    Student(string studentInfo) {
+        std::istringstream studentStream(studentInfo);
 
-		std::string token;
+        std::string token;
 
-		std::vector <std::string> v;
+        std::vector <std::string> v;
 
-		while (std::getline(studentStream, token, ',')) {
-			v.push_back(token);
-		}
+        while (std::getline(studentStream, token, ',')) {
+            v.push_back(token);
+        }
 
-		name = v[0];
-		id = v[1];
-		email = v[2];
-		presentation_grade = std::stoi(v[3]);
-		essay_grade = std::stoi(v[4]);
-		project_grade = std::stoi(v[5]);
+        name = v[0];
+        id = v[1];
+        email = v[2];
+        presentation_grade = std::stoi(v[3]);
+        essay_grade = std::stoi(v[4]);
+        project_grade = std::stoi(v[5]);
 
-		v.clear();
-	}
+        v.clear();
+    }
 };
 
 
@@ -168,7 +168,7 @@ public:
         return true;
     }
 
-    void overrideVector(std::vector <Student> replacement){
+    void overrideVector(std::vector <Student> replacement) {
         students = replacement;
     }
 };
@@ -190,10 +190,6 @@ bool checkEmail(std::string email);
 std::string makeLowerCase(std::string str);
 std::string trimString(std::string str);
 bool hasSpecialCharactersOrNumbers(std::string str);
-
-
-
-
 
 std::string filePath = "Students.csv";
 
@@ -250,13 +246,13 @@ bool checkEmail(std::string email) {
     std::string email_postfix = "@usf.edu";
 
     if (email.length() >= email_postfix.length())
-        if (email.compare(email.length() - email_postfix.length(), email_postfix.length(), email_postfix)==0)
+        if (email.compare(email.length() - email_postfix.length(), email_postfix.length(), email_postfix) == 0)
             return true;
         else
             return false;
     else
         return false;
-  
+
 }
 
 bool hasSpecialCharactersOrNumbers(std::string str) {
@@ -274,10 +270,8 @@ bool hasSpecialCharactersOrNumbers(std::string str) {
 
 char getOption() {
     while (true) {
-        std::cin.clear();
         string in;
         std::cout << std::endl << "What would you like to do?\na - 'add student'\nd - 'delete student'\ns - 'search/view student'\nv - 'view all records'\nu - 'update student info'\nq - 'quit program'\n\nOption: ";
-        std::cin.clear();
         std::getline(std::cin, in);
 
         if (in.length() > 1) {
@@ -298,11 +292,9 @@ char getOption() {
 
 char getUpdateOption() {
     while (true) {
-        std::cin.clear();
         string in;
         std::cout << std::endl
-                  << "What would you like to update?\nn - 'name'\nm - 'email'\np - 'presentation score'\ne - 'essay score'\nr - 'project score'\nq = 'go back to the menu'\n\nOption: ";
-        std::cin.clear();
+            << "What would you like to update?\nn - 'name'\nm - 'email'\np - 'presentation score'\ne - 'essay score'\nr - 'project score'\nq = 'go back to the menu'\n\nOption: ";
         std::getline(std::cin, in);
 
         if (in.length() > 1) {
@@ -327,20 +319,26 @@ bool checkID(std::string uid) {
     bool isGood = true;
 
     //If UID starts with U, check that the rest is numeric
-    if ((uid.rfind("U", 0) == 0) || (uid.rfind("u", 0) == 0)) {
-        
-        //go through the string, checking that the rest are digits
-        for (int i = 1; i < uid.length(); i++) {
-            if (isdigit(uid[i]) == false) {
-                isGood = false;
-                break;
+    if (uid.length() == 10) {
+        if ((uid.rfind("U", 0) == 0) || (uid.rfind("u", 0) == 0)) {
+
+            //go through the string, checking that the rest are digits
+            for (int i = 1; i < uid.length(); i++) {
+                if (isdigit(uid[i]) == false) {
+                    isGood = false;
+                    break;
+                }
+                else
+                    isGood = true;
             }
-            else
-                isGood = true;
         }
+        else
+            isGood = false;
     }
-    else
+    else {
         isGood = false;
+        std::cout << "Not enough characters" << std::endl;
+    }
 
     return isGood;
 }
@@ -380,7 +378,7 @@ bool addStudent(StudentList& sl) {
         UID = trimString(UID);
         UID = makeUpperCase(UID);
         bool bool_id = checkID(UID);
-            
+
         if (bool_id == false) {
             std::cout << "The ID is not valid." << std::endl;
             continue;
@@ -418,7 +416,7 @@ bool addStudent(StudentList& sl) {
         email = makeLowerCase(email);
         bool bool_email = checkEmail(email);
 
-        if (bool_email== false) {
+        if (bool_email == false) {
             std::cout << "The email is not valid." << std::endl;
             continue;
         }
@@ -445,20 +443,20 @@ bool searchStudent(StudentList& sl) {
     Student tempst = Student();
 
 
-        std::cout << "Please provide email, id, or name: " << std::endl;
-        std::getline(std::cin, search_term);
-        search_term = trimString(search_term);
+    std::cout << "Please provide email, id, or name: " << std::endl;
+    std::getline(std::cin, search_term);
+    search_term = trimString(search_term);
 
-        //use this tempst object to pass to another function if you need to return an object.
+    //use this tempst object to pass to another function if you need to return an object.
 
-        for (Student s : sl.getStudents())
-        {
-            if (s.getEmail() == makeLowerCase(search_term) || s.getName() == search_term || s.getId() == makeUpperCase(search_term)) {
-                isFound = true;
-                tempst = s;
-                break;
-            }
+    for (Student s : sl.getStudents())
+    {
+        if (s.getEmail() == makeLowerCase(search_term) || s.getName() == search_term || s.getId() == makeUpperCase(search_term)) {
+            isFound = true;
+            tempst = s;
+            break;
         }
+    }
 
     if (isFound) {
         std::cout << "Found!" << std::endl;
@@ -479,26 +477,21 @@ string getString(string field, int maxLen) {
         string in;
         std::cout << "\nPlease enter the " << field << " of the student: ";
         std::getline(std::cin, in);
-        if (in.length() > maxLen || in.length() < 1) {
-            std::cout << "\nERROR: " << field << " must not exceed " << maxLen << " characters in length, or be empty.\n";
+        if (in.length() > maxLen || in.length() < 1 || in.find(',') != std::string::npos) {
+            std::cout << "\nERROR: " << field << " must not exceed " << maxLen << " characters in length, be empty, or contain commas.\n";
             continue;
         }
         else {
             return in;
-            break;
         }
     }
-    return "";
 }
 
 int getScore(string field) {
     while (true) {
-        std::cin.clear();
         int in;
         std::cout << "\nPlease enter the " << field << " of the student(999 if no grade): ";
         while (!(std::cin >> in)) {
-            std::cin.clear();
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "\nERROR: " << field << " must be a number.\nPlease enter the " << field << " of the student you are adding: ";
         }
 
@@ -507,14 +500,14 @@ int getScore(string field) {
             continue;
         }
         else {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return in;
-            break;
         }
     }
 }
 
 bool delStudent(StudentList& sl) {
-    std::cin.clear();
     string uid;
     std::cout << "\nPlease enter the UID of the student you would like to delete: ";
     std::getline(std::cin, uid);
