@@ -28,9 +28,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Team_Monroe_FaultSeeded.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Team_Monroe_NoFault.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
