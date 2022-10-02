@@ -184,7 +184,7 @@ bool checkEmail(std::string email);
 std::string makeLowerCase(std::string str);
 std::string trimString(std::string str);
 bool hasSpecialCharactersOrNumbers(std::string str);
-
+void clearBuffer();
 
 
 
@@ -364,10 +364,6 @@ std::string makeLowerCase(std::string str) {
 }
 bool addStudent(StudentList& sl) {
 
-    /*USF ID*/
-
-    string UID;
-
     //if ID is not properlt formatted, ask to reenter the ID
     while (true) {
         UID = getString("UID", 10);
@@ -502,7 +498,7 @@ int getScore(string field) {
         }
         else {
             return in;
-            break;
+            clearBuffer();
         }
     }
 }
@@ -669,3 +665,10 @@ bool updateCSV(StudentList& sl) {
     //error writing
     return false;
 }
+
+void clearBuffer(){
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    return;
+}
+
